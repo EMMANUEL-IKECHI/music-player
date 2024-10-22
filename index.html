@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="assets/styles/style.css">
+</head>
+<body>
+   <audio src="assets/audio/y2mate.com - IWO LOBA AWON OBA  KING OF KINGS  by ESTHER OJI.mp3" preload="metadata"></audio>
+     <!-- <div class="play">Play</div>
+    <div class="pause">Pause</div>
+    <input type="file" name="" id=""> -->
+
+    <header>
+        <img src="assets/images/return.png" alt="">
+    </header>
+
+    <main>
+        <div class="volume">
+            
+            <b>Vol:</b><output>100</output><input type="range" class="volume-slider" name="volume-slider" id="volume-slider" value="100">
+        </div>
+
+        <div class="disk-container">
+            <img src="assets/images/disk.png" alt="" class="disk">
+        </div>
+
+        <div class="track-name">
+            IWO LOBA AWON OBA  KING OF KINGS  by ESTHER OJI.mp3
+        </div>
+
+        <div class="track-bar">
+            <input type="range" name="track-slider" class="track-slider" id="track-slider" value="0">
+            <div class="timing">
+                <span class="start-time">0.00</span> <span class="full-time"></span>
+            </div>
+        </div>
+        <div class="seek-options">
+            <button class="previous">
+                <<
+            </button>
+
+            <button class="play ">
+                |<span>></span>
+            </button>
+
+            <button class="next">
+                >>
+            </button>
+        </div>
+    </main>
+
+    <menu>
+        <ol>
+            <li class="active"><span>IWO LOBA AWON OBA  KING OF KINGS  by ESTHER OJI.mp3</span><span>IWO LOBA AWON OBA  KING OF KINGS  by ESTHER OJI.mp3</span></li>
+        </ol>
+    </menu>
+
+    <form action="">
+        <input type="file" name="file" id="file">
+        <input type="submit" value="Add Song" class="add">
+    </form>
+
+    <script src="assets/scripts/script.js"></script>
+</body>
+</html>
