@@ -19,9 +19,9 @@ form.addEventListener("submit", (e)=>{
 })
 
 function createLi() {
-    let audio = document.createElement("audio");
-    audio.setAttribute('preload', 'metadata');
-    body.appendChild(audio);
+    let createdAudio = document.createElement("audio");
+    createdAudio.setAttribute('preload', 'metadata');
+    body.appendChild(createdAudio);
     
     let li = document.createElement("li");
     li.textContent = form.file.value;
@@ -29,11 +29,12 @@ function createLi() {
     li.addEventListener("click", ()=>{
         audio.removeAttribute("src");
         console.log(audio);
+        // console.log(createdAudio);
         let fileName = li.textContent.slice(12,li.textContent.length);
         console.log(fileName);
         audio.setAttribute("src", `assets/audio/${fileName}`);
         trackName.textContent = fileName;
-        console.log(li);
+        // console.log(li);
     })
     console.log(`assets/audio/${li.textContent}`);
     console.log(audio);
