@@ -10,7 +10,7 @@ let disk = document.querySelector(".disk");
 let form = document.querySelector("form");
 let ol = document.querySelector("ol");
 let addSong = document.querySelector(".add");
-let trackName = document.querySelector(".track-name");
+let displayedTitle = document.querySelector(".track-name");
 let body = document.querySelector("body");
 
 //Prevent the form from reloading the page
@@ -18,29 +18,59 @@ form.addEventListener("submit", (e)=>{
     e.preventDefault();
 })
 
+let currentValue;
+
 function createLi() {
-    let createdAudio = document.createElement("audio");
-    createdAudio.setAttribute('preload', 'metadata');
-    body.appendChild(createdAudio);
-    
+    // let createdAudio = document.createElement("audio");
+    // createdAudio.setAttribute('preload', 'metadata');
+    // body.appendChild(createdAudio);
     let li = document.createElement("li");
-    li.textContent = form.file.value;
+    let trackName = form.file.value;
+    trackName = trackName.slice(12,trackName.length);
+    // console.log(trackName);
+    li.textContent = trackName;
     ol.appendChild(li);
+    let del = document.createElement("div");
+    del.classList.add("del");
+    del.textContent = "X";
+    console.log(li);
+    li.appendChild(del);
+    del.addEventListener("click", ()=>{
+        ol.removeChild(li);
+    })
     li.addEventListener("click", ()=>{
         audio.removeAttribute("src");
-        console.log(audio);
-        // console.log(createdAudio);
-        let fileName = li.textContent.slice(12,li.textContent.length);
-        console.log(fileName);
+        let fileName = trackName;
+        li.classList.toggle("active");
         audio.setAttribute("src", `assets/audio/${fileName}`);
-        trackName.textContent = fileName;
-        // console.log(li);
+        displayedTitle.textContent = fileName;
+        // localStorage.setItem(trackName, form.file.value);
+        // console.log(localStorage.getItem(trackName));
+        play.innerHTML = '|<span>></span>';
+        // currentValue = form.file.value;
     })
-    console.log(`assets/audio/${li.textContent}`);
-    console.log(audio);
+    // console.log(`assets/audio/${li.textContent}`);
+    // console.log(audio);
+    currentValue = form.file.value;
 }
 
-addSong.addEventListener("click", createLi);
+addSong.addEventListener("click", ()=>{
+    
+    if (form.file.value) {
+        if(form.file.value == currentValue) {
+            alert(`You've already added this file.\nPlease choose another one.`);
+        }
+
+        else {
+            createLi();
+            console.log(currentValue);
+            console.log(form.file.value);
+        }
+    }
+    else {
+        alert("Select an audio file!");
+    }
+});
 // output.textContent = volume.value;
 
 play.addEventListener("click", ()=>{
@@ -96,6 +126,7 @@ function showRangeProgress(rangeInput) {
 }
 volume.addEventListener('input', (e)=>{
     showRangeProgress(e.target);
+    audio.volume = (volume.value) / 100;
 })
 
 slider.addEventListener('input', (e)=>{
@@ -126,6 +157,5 @@ if (audio.readyState > 0) {
     }
 
 // let bufferedAmount = audio.seekable.end(audio.seekable.length - 1);
-console.log(audio.seekable.length);
 
 
