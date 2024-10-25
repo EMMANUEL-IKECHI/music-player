@@ -12,6 +12,10 @@ let ol = document.querySelector("ol");
 let addSong = document.querySelector(".add");
 let displayedTitle = document.querySelector(".track-name");
 let body = document.querySelector("body");
+let reset = document.querySelector(".reset");
+let previous = document.querySelector(".previous");
+let next = document.querySelector(".next");
+let trackList = {};
 
 //Prevent the form from reloading the page
 form.addEventListener("submit", (e)=>{
@@ -20,15 +24,23 @@ form.addEventListener("submit", (e)=>{
 
 let currentValue;
 
-function createLi() {
-    // let createdAudio = document.createElement("audio");
-    // createdAudio.setAttribute('preload', 'metadata');
-    // body.appendChild(createdAudio);
+for (let i = 0; i < localStorage.length; i++) {
+    createLi(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
+    // console.log();
+}
+
+
+function createLi(name, location) {
     let li = document.createElement("li");
     let trackName = form.file.value;
     trackName = trackName.slice(12,trackName.length);
-    // console.log(trackName);
-    li.textContent = trackName;
+    if (name) {
+        li.textContent = name;    
+    }
+
+    else {
+        li.textContent = trackName;
+    }
     ol.appendChild(li);
     let del = document.createElement("div");
     del.classList.add("del");
@@ -41,18 +53,35 @@ function createLi() {
     li.addEventListener("click", ()=>{
         audio.removeAttribute("src");
         let fileName = trackName;
-        li.classList.toggle("active");
-        audio.setAttribute("src", `assets/audio/${fileName}`);
-        displayedTitle.textContent = fileName;
-        // localStorage.setItem(trackName, form.file.value);
-        // console.log(localStorage.getItem(trackName));
+        if (name) {
+            audio.setAttribute("src", `${location}`);    
+            displayedTitle.textContent = name;
+        }
+        else {
+            audio.setAttribute("src", `assets/audio/${fileName}`);
+            displayedTitle.textContent = fileName;
+        }
         play.innerHTML = '|<span>></span>';
-        // currentValue = form.file.value;
+        console.log(li);
     })
-    // console.log(`assets/audio/${li.textContent}`);
-    // console.log(audio);
     currentValue = form.file.value;
+    
+    let currentTrack = localStorage.getItem(name);
+    previous.addEventListener("click", ()=> {
+        console.log("Previous");
+        // audio.setAttribute("src", trackList);
+    })
+
+    next.addEventListener("click", ()=> {
+        console.log("Next");
+    })
 }
+
+
+reset.addEventListener("click", ()=> {
+    localStorage.clear();
+    ol.innerHTML = "";
+})
 
 addSong.addEventListener("click", ()=>{
     
@@ -63,8 +92,10 @@ addSong.addEventListener("click", ()=>{
 
         else {
             createLi();
-            console.log(currentValue);
-            console.log(form.file.value);
+            localStorage.setItem(form.file.value.slice(12, form.file.value.length), `assets/audio/${form.file.value.slice(12, form.file.value.length)}`);
+            console.log(localStorage);
+            trackList[form.file.value.slice(12, form.file.value.length)] = `assets/audio/${form.file.value.slice(12, form.file.value.length)}`;
+            console.log(trackList);
         }
     }
     else {

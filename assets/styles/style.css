@@ -32,10 +32,18 @@ header {
     padding-inline: 2em;
     padding-top: 1em;
     align-self: flex-start;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    flex-shrink: 0;
 }
 
 header img {
     width: 1.5em;
+}
+
+header button {
+    justify-self: end;
 }
 
 main {
@@ -196,7 +204,7 @@ input[type="range"]:active::-ms-thumb {
     gap: 10px;
 }
 
-.seek-options button {
+button {
     font-size: .8em;
     font-weight: 1000;
     width: 5em;
@@ -289,7 +297,11 @@ form input{
     outline: none;
     border: none;
     border-radius: 3px;
-    
+}
+
+form input[type="file"] {
+    /* color: red; */
+    appearance: none;
 }
 
 ol {
